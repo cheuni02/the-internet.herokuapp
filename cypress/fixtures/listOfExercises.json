@@ -1,0 +1,22 @@
+[{
+    "label": "A/B Testing",
+    "link": "/abtest"
+},
+{
+    "label": "Add/Remove Elements",
+    "link": "/add_remove_elements/"
+},
+{
+    "label": "Basic Auth",
+    "link": "/basic_auth"
+},
+{
+    "label": "Broken Images",
+    "link": "/broken_images"
+},
+{
+    "label": "Challenging DOM",
+    "link": "/challenging_dom"
+}]
+    
+    
