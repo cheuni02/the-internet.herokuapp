@@ -17,6 +17,18 @@
 {
     "label": "Challenging DOM",
     "link": "/challenging_dom"
+},
+{
+    "label": "Checkboxes",
+    "link": "/checkboxes"
+},
+{
+    "label": "Context Menu",
+    "link": "/context_menu"
+},
+{
+    "label": "Digest Authentication",
+    "link": "/digest_auth"
 }]
     
     
