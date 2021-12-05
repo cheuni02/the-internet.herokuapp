@@ -38,4 +38,15 @@ describe('testing http requests', () => {
           })
           .and('not.include', { "userId": 2 })
     })
+
+    it(`Test POST request to append a new todo onto the 201st position`, () => {
+      cy.request(`POST`,`https://jsonplaceholder.cypress.io/todos`,  {
+        "id": 234,
+        "title": "situation is bleak",
+        "completed": false
+      })
+        .then((res => {
+          expect(res.status).to.eq(201)
+        }))
+    })
 })
