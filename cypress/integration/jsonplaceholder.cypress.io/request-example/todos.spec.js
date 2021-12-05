@@ -59,4 +59,14 @@ describe('testing http requests', () => {
       })
     })
 
+    it(`Test POST request to append a new todo onto the 201st position, by readFile method and an alias`, () => {
+      cy.readFile(`cypress/fixtures/createNewTodo.json`).as('payload') 
+      cy.get('@payload').then((bodyJson) => {
+        cy.request(`POST`,`https://jsonplaceholder.cypress.io/todos`,  bodyJson)
+          .then((res => {
+            expect(res.status).to.eq(201)
+        }))
+      })
+    })
+
 })
