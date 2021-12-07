@@ -63,9 +63,30 @@ describe('testing http requests', () => {
       cy.readFile(`cypress/fixtures/createNewTodo.json`).as('payload') 
       cy.get('@payload').then((bodyJson) => {
         cy.request(`POST`,`https://jsonplaceholder.cypress.io/todos`,  bodyJson)
-          .then((res => {
+          .then((res) => {
             expect(res.status).to.eq(201)
-        }))
+        })
+      })
+    })
+
+    it(`Test POST request using readFile on json payload then try and check that object is still not added to todos array`, () => {
+      cy.readFile(`cypress/fixtures/createNewTodo.json`).then((payload) => {
+        cy.request(`POST`,`https://jsonplaceholder.cypress.io/todos`, payload).then((res) => {
+          expect(res.status).to.eq(201)
+        })
+      })
+
+      cy.request(`https://jsonplaceholder.cypress.io/todos`)
+        .its('body')
+        .should('have.length', 200)
+
+      cy.request(`https://jsonplaceholder.cypress.io/todos/200`)
+       .its('body')
+       .should('contain',{
+        "userId": 10,
+        "id": 200,
+        "title": "ipsam aperiam voluptates qui",
+        "completed": false
       })
     })
 
