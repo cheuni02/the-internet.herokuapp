@@ -11,6 +11,15 @@ describe(`check HTTP requests to /api/members`, () => {
         )
     })
 
+    it(`can GET a specific member`, () => {
+        cy.request(`http://localhost:5000/api/members/2`)
+          .then((res) => {
+              expect(res.status).to.eq(200)
+              cy.log(res.body)
+              expect(res.body[0]).to.contain({"id":2,"name":"Donatello Bellucio","email":"donbellend@gmail.com","status":"active"})
+          })
+    })
+
     it(`can POST a new member and verify`, () => {
         cy.request({
             method: 'POST',
