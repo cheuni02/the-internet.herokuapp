@@ -1,4 +1,4 @@
-describe(`check HTP requests to /api/members`, () => {
+describe(`check HTTP requests to /api/members`, () => {
     it(`can GET all members`, () => {
         cy.request({
             method: `GET`,
