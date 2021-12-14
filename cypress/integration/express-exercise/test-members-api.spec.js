@@ -32,9 +32,11 @@ describe(`check HTTP requests to /api/members`, () => {
             body: {"name":"Alice Tang","email":"alice@gmail.com","status":"active"}
         })
         .then((res) => {    
+            const re = /\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/
+            const successMsg = /member with id \b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b created .../
             expect(res.status).to.eq(201)
-            expect(res.body.msg).to.match(/member with id \b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b created .../)
-            
+            expect(res.body.msg).to.match(successMsg)
+            cy.wrap(res.body.msg.match(re)).as('createdId')
         })
         cy.request(`http://localhost:5000/api/members`).then((res) => {
             cy.wrap(res.body.length).then((newLength) => {
@@ -48,5 +50,12 @@ describe(`check HTTP requests to /api/members`, () => {
                 })
             })
         })
+        cy.get('@createdId').then((id) => {
+            cy.request(`http://localhost:5000/api/members/${id}`).then((res) => {
+                expect(res.body.name).to.eq("Alice Tang")
+                expect(res.body.email).to.eq("alice@gmail.com")
+                expect(res.body.status).to.eq("active")
+            })
+        })       
     })
 })
