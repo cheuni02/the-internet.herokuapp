@@ -1,4 +1,5 @@
 describe(`check HTTP requests to /api/members`, () => {
+    
     it(`can GET all members`, () => {
         cy.request({
             method: `GET`,
@@ -7,7 +8,6 @@ describe(`check HTTP requests to /api/members`, () => {
         }).then(
             (res) => {
                 expect(res.status).to.eq(200)
-                // expect(res.body).to.have.length(8)    
             }
         )
     })
@@ -22,6 +22,9 @@ describe(`check HTTP requests to /api/members`, () => {
     })
 
     it(`can POST a new member and verify`, () => {
+        cy.request(`http://localhost:5000/api/members`).then((res) => {
+            cy.wrap(res.body.length).as('oldLength')
+        })
         cy.request({
             method: 'POST',
             url: `http://localhost:5000/api/members`,
@@ -32,6 +35,13 @@ describe(`check HTTP requests to /api/members`, () => {
             expect(res.status).to.eq(201)
             expect(res.body.msg).to.match(/member with id \b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b created .../)
             
-        }) 
+        })
+        cy.request(`http://localhost:5000/api/members`).then((res) => {
+            cy.wrap(res.body.length).then((newLength) => {
+                cy.get('@oldLength').then((oldLength) => {
+                    expect(newLength).to.eq(oldLength + 1)
+                })
+            })
+        })
     })
 })
