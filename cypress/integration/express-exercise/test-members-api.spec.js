@@ -40,6 +40,11 @@ describe(`check HTTP requests to /api/members`, () => {
             cy.wrap(res.body.length).then((newLength) => {
                 cy.get('@oldLength').then((oldLength) => {
                     expect(newLength).to.eq(oldLength + 1)
+                    cy.wrap(res.body[oldLength]).then((newlyAddedTodo) => {
+                        expect(newlyAddedTodo.name).to.eq("Alice Tang")
+                        expect(newlyAddedTodo.email).to.eq("alice@gmail.com")
+                        expect(newlyAddedTodo.status).to.eq("active")
+                    })
                 })
             })
         })
