@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "cy:run" : "cypress run",
-    "cy:run-record" : "cypress run --record --key 6caaaf2b-5463-47a1-8fc4-240f35491925"
+    "cy:run": "cypress run",
+    "cy:run-record": "cypress run --record --key 6caaaf2b-5463-47a1-8fc4-240f35491925"
   },
   "author": "",
   "license": "ISC",

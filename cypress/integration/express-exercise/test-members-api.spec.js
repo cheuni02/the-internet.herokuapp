@@ -52,9 +52,9 @@ describe(`check HTTP requests to /api/members`, () => {
         })
         cy.get('@createdId').then((id) => {
             cy.request(`http://localhost:5000/api/members/${id}`).then((res) => {
-                expect(res.body.name).to.eq("Alice Tang")
-                expect(res.body.email).to.eq("alice@gmail.com")
-                expect(res.body.status).to.eq("active")
+                expect(res.body[0].name).to.eq("Alice Tang")
+                expect(res.body[0].email).to.eq("alice@gmail.com")
+                expect(res.body[0].status).to.eq("active")
             })
         })       
     })
