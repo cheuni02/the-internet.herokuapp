@@ -58,4 +58,40 @@ describe(`check HTTP requests to /api/members`, () => {
             })
         })       
     })
+
+    it('can PUT to amend ONLY the email of a member', () => {
+        cy.request({ 
+            method: 'PUT', 
+            url: `http://localhost:5000/api/members/2`, 
+            form: true,
+            body: {"email":"amended-email-test-1@gmail.com"}
+        })
+        .then((res) => {
+            expect(res.status).to.eq(201)
+            cy.request(`http://localhost:5000/api/members/2`)
+              .then((res) => {
+                  expect(res.body[0].email).to.eq("amended-email-test-1@gmail.com")
+              })
+        })
+    })
+
+    it('can PUT to amend more than one property of a member', () => {
+        cy.request({ 
+            method: 'PUT', 
+            url: `http://localhost:5000/api/members/2`, 
+            form: true,
+            body: {
+                "name":"amended-name",
+                "email":"amended-email-test-2@gmail.com"
+            }
+        })
+        .then((res) => {
+            expect(res.status).to.eq(201)
+            cy.request(`http://localhost:5000/api/members/2`)
+              .then((res) => {
+                  expect(res.body[0].name).to.eq("amended-name")
+                  expect(res.body[0].email).to.eq("amended-email-test-1@gmail.com")
+              })
+        })
+    })
 })
