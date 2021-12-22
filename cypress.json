@@ -1,4 +1,6 @@
 {
   "projectId": "6c3o1e",
-  "baseUrl": "https://the-internet.herokuapp.com"
+  "baseUrl": "https://the-internet.herokuapp.com",
+  "screenshotOnRunFailure": false,
+  "video": false
 }
