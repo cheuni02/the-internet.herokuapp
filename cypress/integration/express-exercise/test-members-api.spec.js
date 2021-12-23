@@ -68,6 +68,7 @@ describe(`check HTTP requests to /api/members`, () => {
         })
         .then((res) => {
             expect(res.status).to.eq(200)
+            expect(res.body).property("msg").to.eq("Member 2 updated")
             expect(res.body.member).property("id").to.eq(2)
             expect(res.body.member).property("email").to.eq("amended-email-test-1@gmail.com")
             cy.request(`http://localhost:5000/api/members/2`)
@@ -89,6 +90,7 @@ describe(`check HTTP requests to /api/members`, () => {
         })
         .then((res) => {
             expect(res.status).to.eq(200)
+            expect(res.body).property("msg").to.eq("Member 2 updated")
             expect(res.body.member).property("id").to.eq(2)
             expect(res.body.member).property("name").to.eq("amended-name")
             expect(res.body.member).property("email").to.eq("amended-email-test-2@gmail.com")
