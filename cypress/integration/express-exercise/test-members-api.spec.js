@@ -59,7 +59,7 @@ describe(`check HTTP requests to /api/members`, () => {
         })       
     })
 
-    it.only('can PUT to amend ONLY the email of a member', () => {
+    it('can PUT to amend ONLY the email of a member', () => {
         cy.request({ 
             method: 'PUT', 
             url: `http://localhost:5000/api/members/2`, 
@@ -68,16 +68,8 @@ describe(`check HTTP requests to /api/members`, () => {
         })
         .then((res) => {
             expect(res.status).to.eq(200)
-            cy.log("res.body: " + res.body)
-            expect(res.body).to.eq({
-                "msg": "Member 2 updated",
-                "member": {
-                    "id": 2,
-                    "name": "Donatello Bellucio",
-                    "email": "amended-email-test-1@gmail.com",
-                    "status": "active"
-                }
-            })
+            expect(res.body.member).property("id").to.eq(2)
+            expect(res.body.member).property("email").to.eq("amended-email-test-1@gmail.com")
             cy.request(`http://localhost:5000/api/members/2`)
               .then((res) => {
                   expect(res.body[0].email).to.eq("amended-email-test-1@gmail.com")
@@ -97,6 +89,9 @@ describe(`check HTTP requests to /api/members`, () => {
         })
         .then((res) => {
             expect(res.status).to.eq(200)
+            expect(res.body.member).property("id").to.eq(2)
+            expect(res.body.member).property("name").to.eq("amended-name")
+            expect(res.body.member).property("email").to.eq("amended-email-test-2@gmail.com")
             cy.request(`http://localhost:5000/api/members/2`)
               .then((res) => {
                   expect(res.body[0].name).to.eq("amended-name")
