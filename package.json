@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^8.6.0"
+    "cypress": "^8.6.0",
+    "eslint": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1"
   }
 }
