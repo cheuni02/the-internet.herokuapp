@@ -1,7 +1,4 @@
-describe(`check HTTP requests to /api/members`,
-    {
-        baseUrl : 'http://localhost:5000'
-    }, () => {
+describe(`check HTTP requests to /api/members`, () => {
     
     it(`can GET all members`, () => {
         cy.request({

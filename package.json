@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "cy:run": "cypress run",
+    "cy:run-set-ext-baseurl": "cypress run --config 'baseUrl=http://localhost:5000'",
     "cy:run-record": "cypress run --record --key 6caaaf2b-5463-47a1-8fc4-240f35491925"
   },
   "author": "",
